@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class LibraryExceptionHandler {
 
+    /* This method handles the exception and return the error, with status code and error message.*/
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ErrorResponse> handleResponseStatusException(ResponseStatusException ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
@@ -25,6 +26,12 @@ public class LibraryExceptionHandler {
         return new ResponseEntity<>(errorResponse, ex.getStatusCode());
     }
 
+    /* This method handles all validations of book details:
+         1. Validate that the price is non-negative
+         2. Validate the book name can't be null or empty
+         3. Validate the author name can't be null or empty
+       It will throw 500 status code on any validation failed with proper message
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         List<String> validationErrors = ex.getBindingResult().getAllErrors().stream()
@@ -45,6 +52,8 @@ public class LibraryExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+
+    /* This method throws 500 status code on any exception. */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
@@ -55,7 +64,7 @@ public class LibraryExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // Handle BookNotFoundException (custom exception for missing book)
+    /* This method throws 404 status code on Handle BookNotFoundException (custom exception for missing book) */
     @ExceptionHandler(BookNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleBookNotFoundException(BookNotFoundException ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(

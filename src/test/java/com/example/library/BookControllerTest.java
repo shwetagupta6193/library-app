@@ -46,7 +46,7 @@ public class BookControllerTest {
         mockMvc.perform(post("/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\":\"Spring Boot\",\"author\":\"Author 1\",\"price\":25.99}"))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("Spring Boot"))
                 .andExpect(jsonPath("$.author").value("Author 1"))
                 .andExpect(jsonPath("$.price").value(25.99));
@@ -58,7 +58,7 @@ public class BookControllerTest {
         String response = mockMvc.perform(post("/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validBookJson))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();

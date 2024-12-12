@@ -2,6 +2,7 @@ package com.example.library.handler;
 
 import java.util.List;
 
+/* Error Response is responsible to give the structure of error elements */
 public class ErrorResponse {
 
     private String errorCode;
