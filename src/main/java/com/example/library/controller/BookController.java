@@ -20,7 +20,7 @@ public class BookController {
     @PostMapping
     public ResponseEntity<Books> addBook(@Valid @RequestBody Books book) {
         Books savedBook = bookService.addBook(book);
-        return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedBook, HttpStatus.OK);
     }
 
     @GetMapping

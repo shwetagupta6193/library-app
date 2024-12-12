@@ -36,13 +36,13 @@ public class LibraryExceptionHandler {
                 .collect(Collectors.toList());
 
         ErrorResponse errorResponse = new ErrorResponse(
-                "ERROR-400",
-                HttpStatus.BAD_REQUEST.value(),
+                "ERROR-500",
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Validation failed",
                 validationErrors
         );
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(Exception.class)
